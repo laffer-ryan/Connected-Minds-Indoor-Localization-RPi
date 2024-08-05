@@ -1,0 +1,6 @@
+awscrt==0.21.1
+awsiotsdk==1.22.0
+mpu6050-raspberrypi==1.2
+paho-mqtt==2.1.0
+python-dotenv==1.0.1
+smbus==1.1.post2
