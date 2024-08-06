@@ -1,6 +1,7 @@
 import os
 import logging
 import ssl
+import time
 from dotenv import load_dotenv
 from awscrt import io, mqtt, auth, http
 from awsiot import mqtt_connection_builder
@@ -12,7 +13,6 @@ env_file_path = os.path.join(current_dir, '..', '.env')
 
 load_dotenv(dotenv_path=env_file_path)
 
-PUBLIC_KEY_FILE_PATH = os.environ.get('PUBLIC_KEY_FILE_PATH') # Not required
 
 AWS_IOT_CORE_ENDPOINT = os.getenv('AWS_IOT_CORE_ENDPOINT')
 AWS_IOT_CORE_CLIENT_ID = os.getenv('AWS_IOT_CORE_CLIENT_ID')
@@ -37,7 +37,7 @@ mqtt_connection = mqtt_connection_builder.mtls_from_path(
     ca_filepath=AWS_IOT_CORE_ROOT_CA,
     client_bootstrap=client_bootstrap,
     client_id=AWS_IOT_CORE_CLIENT_ID,
-    # tls_version=ssl.PROTOCOL_SSLv23,
+    tls_version=ssl.PROTOCOL_SSLv23,
     clean_session=False,
     keep_alive_secs=6
 )
@@ -75,3 +75,8 @@ def subscribe(topic, callback):
     subscribe_future.result()
     logger.info(f"Subscribed to topic {topic}")
 
+
+
+connect()
+time.sleep(10)
+disconnect()
